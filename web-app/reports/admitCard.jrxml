@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="admitCard" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" isFloatColumnFooter="true" uuid="62540371-7f8d-43f3-873f-53b4fe48ced8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="REPORT_LOGO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="imageFile" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="schoolName" class="java.lang.String"/>
+	<parameter name="serialNo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select name, fathers_name,mothers_name,mobile   from reg_online_registration where serial_no = $P{serialNo}]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fathers_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mothers_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mobile" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<title>
+		<band height="100">
+			<rectangle radius="2">
+				<reportElement x="16" y="5" width="70" height="70" forecolor="#FFFFFF" uuid="98d01ed2-ea54-4412-902b-ff454fef02ff"/>
+			</rectangle>
+			<image onErrorType="Icon">
+				<reportElement x="10" y="10" width="160" height="50" forecolor="#CCCCCC" uuid="4fd55d6d-777a-4fa7-9704-450129ba28a9"/>
+				<imageExpression><![CDATA[$P{REPORT_LOGO}+"report-logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="186" y="33" width="271" height="25" uuid="9f85fba3-d296-486c-8d51-43a061eb8947"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Admit Card]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" onErrorType="Icon">
+				<reportElement x="471" y="10" width="92" height="75" forecolor="#CCCCCC" uuid="056275ac-2ba1-4b6e-b38d-50b0307dcef1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[$P{imageFile}?javax.imageio.ImageIO.read($P{imageFile}):null]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="10" y="58" width="160" height="25" uuid="05fda9f8-c49b-47a7-a4a0-f4b379dfb52a"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Application NO : "+$P{serialNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="10" width="271" height="25" uuid="5b53fe1c-ff06-44e9-914b-3a852e668b0c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{schoolName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="270" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="0" width="120" height="16" uuid="e3046ca1-5316-4e8a-add2-d5619f051ca6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Students Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="48" width="120" height="16" uuid="810cc280-122f-41f5-b5df-57ba970a14d5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mobile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="0" width="104" height="16" uuid="754b213a-62b4-4081-9320-53101b583cd4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Admission Class]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="16" width="120" height="16" uuid="aa84c911-e067-4336-a154-2cab8d1cf992"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fathers Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="32" width="120" height="16" uuid="fab0add6-2a96-435f-8dc3-f31e767669e1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mothers Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="10" height="16" uuid="455d4019-65c4-494e-8c7a-1daef53e3bdd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="0" width="10" height="16" uuid="9caef20f-8c52-4d1c-be29-16c351783c0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="48" width="10" height="16" uuid="86a78283-a3a4-4a39-8943-78c1475e57a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="16" width="10" height="16" uuid="f936f184-5a1f-4ab5-be25-e8872d5c80df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="32" width="10" height="16" uuid="02a6be41-7922-416b-bb19-773b75220dcd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="36" y="262" width="500" height="1" uuid="a704f13e-31d5-41eb-854e-0722128dfd53"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="359" y="217" width="142" height="20" uuid="5a3845cb-2368-4be3-8fab-151f68b803df"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Signature]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="0" width="166" height="16" uuid="00319f05-d114-4ba1-a373-88149c0d5b05"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="16" width="166" height="16" uuid="7a3071dd-708f-4360-ad93-fa8fcaa3dfe4"/>
+				<textFieldExpression><![CDATA[$F{fathers_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="32" width="166" height="16" uuid="217df9ab-2287-45fb-aa60-dfc202d79d2a"/>
+				<textFieldExpression><![CDATA[$F{mothers_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="48" width="166" height="16" uuid="b04a1209-3f0d-43c0-90a7-de3782bf4542"/>
+				<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

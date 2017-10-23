@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lessonPlan" language="groovy" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" uuid="68681dbc-e93c-4e6b-8cc5-18efa5044d00">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
+	<parameter name="examTerm" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="className" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sectionName" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateStr" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="companyLogo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sectionId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_LOGO" class="java.lang.String"/>
+	<parameter name="sqlParam" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT lesson.exam_term, lesson.week_start_date, lesson.week_end_date,  section.name as sectionName, lesson.week_number as weekNumber, employee.name as empName,
+lesson.lesson_date as lessonDate, subject.name as subjectName,
+lesson_details.topics, lesson_details.home_work, lesson_details.exam_date
+FROM lesson
+join lesson_details on lesson.id=lesson_details.lesson_id
+inner join section on lesson.section_id=section.id
+inner join employee on lesson_details.employee_id=employee.id
+inner join subject_name subject on lesson_details.subject_id=subject.id
+where $P!{sqlParam}
+order by lesson.week_number asc, lesson.lesson_date asc, subject.sort_position asc]]>
+	</queryString>
+	<field name="exam_term" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="week_start_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="week_end_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sectionName" class="java.lang.String"/>
+	<field name="weekNumber" class="java.lang.Integer"/>
+	<field name="empName" class="java.lang.String"/>
+	<field name="lessonDate" class="java.sql.Timestamp"/>
+	<field name="subjectName" class="java.lang.String"/>
+	<field name="topics" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="home_work" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="exam_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="weekNum" isStartNewPage="true" isReprintHeaderOnEachPage="true" footerPosition="ForceAtBottom" keepTogether="true">
+		<groupExpression><![CDATA[$F{weekNumber}]]></groupExpression>
+		<groupFooter>
+			<band height="49" splitType="Stretch">
+				<staticText>
+					<reportElement x="10" y="25" width="100" height="20" uuid="a02646a0-5bf8-4267-a59c-ad6d1b860d02"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Class In Charge]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="444" y="25" width="121" height="20" uuid="ec5b7c09-814c-49a2-852d-5259fdd54170"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Principal]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="lessonDate">
+		<groupExpression><![CDATA[$F{lessonDate}]]></groupExpression>
+		<groupFooter>
+			<band height="1">
+				<line>
+					<reportElement x="10" y="0" width="555" height="1" uuid="58e4938b-dfbb-476d-9595-74c4278c23bc"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="subject">
+		<groupExpression><![CDATA[$F{subjectName}]]></groupExpression>
+		<groupHeader>
+			<band height="1">
+				<line>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="80" y="0" width="485" height="1" uuid="e8a0f7a0-9737-458a-8d29-d874aeaf94d6">
+						<printWhenExpression><![CDATA[$V{lessonDate_COUNT}>0]]></printWhenExpression>
+					</reportElement>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<pageHeader>
+		<band height="97" splitType="Stretch">
+			<image onErrorType="Icon">
+				<reportElement x="10" y="10" width="200" height="50" uuid="d3c86b12-14ae-4f40-9ae2-42ed7b0c4001"/>
+				<imageExpression><![CDATA[$P{REPORT_LOGO}+"report-logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="10" y="63" width="40" height="17" forecolor="#006666" uuid="de11dba1-65c3-414b-b547-d36d06f32d2d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exam :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="299" y="63" width="73" height="17" forecolor="#006666" uuid="c3c31bbe-0ff2-4e6c-9363-f42288510f9e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{weekNumber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="53" y="80" width="115" height="17" forecolor="#006666" uuid="c59a03b9-fe38-40ce-8417-706ba9e592c7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{week_start_date}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="53" y="63" width="117" height="17" forecolor="#006666" uuid="4c33c693-eb02-473a-8d2e-e4d0ec5e6a84"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{exam_term}.replace( '_', ' ')]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="372" y="63" width="193" height="17" forecolor="#006666" uuid="f35c07fb-efd9-496a-9848-d9df61ca9f0e"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Class: "+$P{className}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="335" y="80" width="230" height="17" forecolor="#006666" uuid="beb41c81-6b94-427f-bb9c-66da83860efa"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Section: "+$P{sectionName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="294" y="10" width="271" height="30" uuid="ebfb8bc6-a2f3-426f-adfa-992534d6b0f5"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Weekly Lesson Plan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="80" width="40" height="17" forecolor="#006666" uuid="711e5478-5ddf-454f-9f28-c482c83c0d57"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date : ]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="198" y="80" width="115" height="17" forecolor="#006666" uuid="c9768c39-d136-4cbf-b7bc-479dfe2d4ddf"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{week_end_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="168" y="80" width="30" height="17" forecolor="#006666" uuid="e020a99a-f1ec-40d1-b7f5-099aba5b1710"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="63" width="60" height="17" forecolor="#006666" uuid="92ae2fbb-5aae-4c70-883b-853ac3d8ddb2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Week No :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="10" y="0" width="70" height="30" uuid="6f6a9ed3-a71e-47f9-81a3-579fdc6a6836"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date & Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="160" y="0" width="235" height="30" uuid="c9541bd3-c460-48ce-8532-a94c180138bd"/>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lesson Topics]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="395" y="0" width="100" height="30" uuid="96d6f6c8-f3bd-4e3a-a5e7-6b1a4fbd5b56"/>
+				<box leftPadding="4">
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Home Work]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="80" y="0" width="80" height="30" uuid="3fd13b78-e8f7-4d75-b7fd-5f65367571fc"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subject Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="495" y="0" width="70" height="30" uuid="2516c550-d9b8-4d74-9aca-855b8b82e5dd"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Exam]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="10" y="0" width="555" height="25" uuid="80a76f2b-a137-493d-94ae-72ee1098b62b"/>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="150" y="0" width="235" height="25" uuid="c2f8a4b0-bed2-4a67-8f91-bfcf2f7bfd20"/>
+					<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5">
+						<leftPen lineWidth="0.75"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SolaimanLipi" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{topics}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="70" y="0" width="80" height="25" uuid="8dd57b0f-6597-46f1-9b39-c0fccad66b55"/>
+					<box topPadding="5" bottomPadding="5">
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{subjectName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="485" y="0" width="70" height="25" uuid="3ca2cfd8-8ae4-4481-bc0a-85642e84e776"/>
+					<box topPadding="5">
+						<leftPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{exam_date}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="385" y="0" width="100" height="25" uuid="6aac49b9-6b37-4782-a27f-9ead50fbcd77"/>
+					<box topPadding="5" leftPadding="5" bottomPadding="5" rightPadding="5">
+						<leftPen lineWidth="0.75"/>
+					</box>
+					<textElement verticalAlignment="Top" markup="html">
+						<font fontName="SolaimanLipi" size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{home_work}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yyyy EEEEE" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="70" height="25" printWhenGroupChanges="lessonDate" uuid="03408e29-5486-4919-9ab9-ae015c4fab26"/>
+					<box topPadding="5" bottomPadding="5"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{lessonDate}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>
