@@ -1,2 +1,2 @@
 # Smart School Management 
-A complete School Management Project
+A Complete School Management Project
