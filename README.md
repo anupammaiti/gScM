@@ -1,2 +1,2 @@
-# gSchool
-GrailsLab School Management Project
+# Smart School Management 
+A complete School Management Project
